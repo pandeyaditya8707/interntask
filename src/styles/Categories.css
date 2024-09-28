@@ -1,0 +1,42 @@
+body{
+  overflow-x: hidden;
+}
+
+.categories-container {
+  
+    display: flex;
+    align-items: center;
+    background-color: #232f3e;
+    padding: 0.5rem 1rem;
+    position: relative;
+    overflow-x: auto; /* Hide overflow to prevent the whole page from scrolling */
+    white-space: nowrap; /* Prevent wrapping */
+  }
+  
+  .categories-list {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scroll */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+    scroll-behavior: smooth; /* Enable smooth scrolling */
+    white-space: nowrap; /* Prevent wrapping */
+  }
+  
+  .categories-list::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+  }
+  
+  .category-item {
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  
+  .category-item:hover {
+    background-color: #37475a; /* Hover effect */
+    border-radius: 4px;
+  }
+  
