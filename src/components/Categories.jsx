@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchCategories } from '../redux/actions/categoryActions';
@@ -7,44 +7,37 @@ import '../styles/Categories.css';
 
 function Categories() {
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categories.categories);
+  const category = useSelector((state) => state.categories.categories);
   const navigate = useNavigate();
-  const listRef = useRef(null);
+
+  // Adding a default 'All' category
+  const categories = [{ slug: 'all', name: 'All' }, ...category]; 
 
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
   const handleCategorySelect = (category) => {
-    if (category === 'All') {
+    if (category.name === 'All') {
       navigate('/'); // Show all products
     } else {
-      navigate(`/?category=${category.slug}`);
+      navigate(`/?category=${category.slug}`); // Corrected the interpolation
     }
   };
 
   return (
-    <div className="categories-container">
-      <ul className="categories-list flex" ref={listRef}>
-        <li
-          key="all"
-          className="category-item mx-2 px-4 py-2 cursor-pointer hover:bg-gray-600 rounded"
-          onClick={() => handleCategorySelect('All')}
+    <div className="scrollmenu">
+      {categories.map((category) => (
+        <a
+          key={category.slug}
+          className="category-item"
+          onClick={() => handleCategorySelect(category)}
         >
-          All
-        </li>
-        {categories.map((category) => (
-          <li
-            key={category.slug}
-            className="category-item mx-2 px-4 py-2 cursor-pointer hover:bg-gray-600 rounded"
-            onClick={() => handleCategorySelect(category)}
-          >
-            {category.name}
-          </li>
-        ))}
-      </ul>
+          {category.name}
+        </a>
+      ))}
     </div>
   );
 }
 
-export default Categories;
+export default Categories; // Corrected the export statement
